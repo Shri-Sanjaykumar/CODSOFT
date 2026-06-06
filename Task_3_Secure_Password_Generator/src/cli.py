@@ -19,37 +19,32 @@ except ImportError:
 
 
 def print_banner() -> None:
-    """Displays the password generator ASCII banner and metadata."""
-    banner = f"""
-{COLOR_HEADER}======================================================================
-  ____                             _    ____            
- |  _ \\ __ _ ___ _____      _____ | | _|  _ \\  ___ _ __  
- | |_) / _` / __/ __\\ \\ /\\ / / _ \\| |/ / | | |/ _ \\ '_ \\ 
- |  __/ (_| \\__ \\__ \\\\ V  V / (_) |   <| |_| |  __/ | | |
- |_|   \\__,_|___/___/ \\_/\\_/ \\___/|_|\\_\\____/ \\___|_| |_|
-                                                         
-{APP_NAME}
-Version: {VERSION}
-Author: {AUTHOR}
-Internship: {INTERNSHIP}
-======================================================================{COLOR_RESET}"""
+    """Displays the password generator ASCII banner and metadata in a compact box."""
+    banner = fr"""
+{COLOR_HEADER}┌──────────────────────────────────────────────────┐
+│   ____   _     ____  _   _    ____  _____ _   _  │
+│  |  _ \ / \   / ___|| | | |  / ___|| ____| \ | | │
+│  | |_) / _ \  \___ \| |_| | | |  _ |  _| |  \| | │
+│  |  __/ ___ \  ___) |  _  | | |_| || |___| |\  | │
+│  |_| /_/   \_\|____/|_| |_|  \____||_____|_| \_| │
+│                                                  │
+│  {APP_NAME:<48}│
+│  Version: {VERSION:<39}│
+│  Author: {AUTHOR:<40}│
+│  Internship: {INTERNSHIP:<36}│
+└──────────────────────────────────────────────────┘{COLOR_RESET}"""
     print(banner)
 
 def print_help() -> None:
-    """Displays help information and best practices."""
-    print(f"\n{COLOR_HEADER}--- HELP & SECURITY BEST PRACTICES ---{COLOR_RESET}")
-    print("Select options to customize your secure password generation settings.")
-    print("\nSecurity Recommendations:")
-    print("  1. Length: A secure password should be at least 12-16 characters long.")
-    print("  2. Complexity: Enable uppercase, lowercase, numbers, and symbols to maximize entropy.")
-    print("  3. Avoid Reuse: Generate a unique password for every account.")
-    print("\nMenu Choices:")
-    print("  [1] Generate Single Password   - Enter constraints and create one password.")
-    print("  [2] Generate Batch Passwords   - Generate multiple passwords at once.")
-    print("  [A] About Project              - Print developer and design details.")
-    print("  [H] Help & Best Practices      - Print this instruction card.")
-    print("  [V] Version Info               - Show current build version.")
-    print("  [Q] Quit                       - Safe close session.")
+    """Displays help information and best practices in a clean, structured frame."""
+    print(f"\n{COLOR_HEADER}┌──────────────── GENERATOR MENU ──────────────────┐{COLOR_RESET}")
+    print(f"│  [1] Generate Single Password                    │")
+    print(f"│  [2] Generate Batch Passwords                    │")
+    print(f"│  [A] About Project                               │")
+    print(f"│  [H] Help & Security Best Practices              │")
+    print(f"│  [V] Version Info                                │")
+    print(f"│  [Q] Quit Generator                              │")
+    print(f"{COLOR_HEADER}└──────────────────────────────────────────────────┘{COLOR_RESET}")
 
 def print_about() -> None:
     """Displays development notes and metadata."""

@@ -10,41 +10,34 @@ from src.config import (
 from src.manager import TaskManager, logger
 
 def print_banner() -> None:
-    """Displays the application's startup banner and metadata."""
-    banner = f"""
-{COLOR_HEADER}======================================================================
-  _____          _      _       _        _        _     _ 
- |_   _|__    __| | ___| |     (_)___  _| |_     | |   (_)___| |_ 
-   | |/ _ \\  / _` |/ _ \\ |     | / __|/ _` __|    | |   | / __| __|
-   | | (_) || (_| |  __/ |___  | \\__ \\ (_| |_     | |___| \\__ \\ |_ 
-   |_|\\___/  \\__,_|\\___|_____| |_|___/\\__,\\__|    |_____|_|___/\\__|
-                                                                   
-{APP_NAME}
-Version: {VERSION}
-Author: {AUTHOR}
-Internship: {INTERNSHIP}
-======================================================================{COLOR_RESET}"""
+    """Displays the application's startup banner and metadata inside a compact box."""
+    banner = fr"""
+{COLOR_HEADER}┌──────────────────────────────────────────────────┐
+│   _____ ___  ____   ___    __  __                │
+│  |_   _/ _ \|  _ \ / _ \  |  \/  | __ _ _ __     │
+│    | || | | | | | | | | | | |\/| |/ _` | '_ \    │
+│    | || |_| | |_| | |_| | | |  | | (_| | | | |   │
+│    |_| \___/|____/ \___/  |_|  |_|\__,_|_| |_|   │
+│                                                  │
+│  {APP_NAME:<48}│
+│  Version: {VERSION:<39}│
+│  Author: {AUTHOR:<40}│
+│  Internship: {INTERNSHIP:<36}│
+└──────────────────────────────────────────────────┘{COLOR_RESET}"""
     print(banner)
 
 def print_help() -> None:
-    """Displays commands and instructions."""
-    print(f"\n{COLOR_HEADER}--- HELP & USAGE INSTRUCTIONS ---{COLOR_RESET}")
-    print("This application allows you to manage tasks with priority, status, and due dates.")
-    print("\nAvailable Operations:")
-    print("  [1] Add Task          - Enter title, description, priority (LOW/MEDIUM/HIGH), and due date.")
-    print("  [2] View All Tasks    - Displays tasks in a formatted table.")
-    print("  [3] Update Task       - Update specific fields of a task by its ID.")
-    print("  [4] Delete Task       - Remove a task by its ID (requires confirmation).")
-    print("  [5] Complete Task     - Mark a task's status as COMPLETED.")
-    print("  [6] Mark Pending      - Revert a task's status to PENDING.")
-    print("  [7] Search Tasks      - Find tasks by a search term.")
-    print("  [8] Sort Tasks        - Sort tasks by priority level or due date.")
-    print("  [9] Productivity Stats- Display total, completed, pending, and percentage.")
-    print("  [A] About Project     - Show metadata and internship info.")
-    print("  [H] Help              - Print this instruction manual.")
-    print("  [V] Version Info      - Print current app version.")
-    print("  [Q] Quit              - Safely save all files and exit.")
-    print(f"{COLOR_MUTED}* Date format expected: YYYY-MM-DD (e.g. 2026-06-30){COLOR_RESET}")
+    """Displays commands and instructions in a clean compact grid."""
+    print(f"\n{COLOR_HEADER}┌───────────────── OPERATIONS MENU ────────────────┐{COLOR_RESET}")
+    print(f"│  [1] Add Task            [6] Mark Pending        │")
+    print(f"│  [2] View All Tasks      [7] Search Tasks        │")
+    print(f"│  [3] Update Task         [8] Sort Tasks          │")
+    print(f"│  [4] Delete Task         [9] Productivity Stats  │")
+    print(f"│  [5] Complete Task       [A] About Project       │")
+    print(f"│  [H] Help Instructions   [V] Version Info        │")
+    print(f"│  [Q] Quit Application                            │")
+    print(f"{COLOR_MUTED}│  * Due Date Format Expected: YYYY-MM-DD          │{COLOR_RESET}")
+    print(f"{COLOR_HEADER}└──────────────────────────────────────────────────┘{COLOR_RESET}")
 
 def print_about() -> None:
     """Displays information about the project development context."""
@@ -80,7 +73,7 @@ def get_tasks_table(tasks) -> str:
     if not tasks:
         return f"{COLOR_WARNING}No tasks registered in the system.{COLOR_RESET}"
     
-    headers = ["ID", "Title", "Priority", "Due Date", "Status", "Created"]
+    headers = ["ID", "Title", "Description", "Priority", "Due Date", "Status"]
     table_data = []
     for t in tasks:
         # Format colors depending on priority and status
@@ -94,15 +87,18 @@ def get_tasks_table(tasks) -> str:
             
         s_color = COLOR_SUCCESS if t.status.value == "COMPLETED" else COLOR_WARNING
         
-        created_formatted = datetime.fromisoformat(t.created_time).strftime("%Y-%m-%d %H:%M")
-        
+        # Keep descriptions short to avoid table wrapping
+        desc_short = t.description
+        if len(desc_short) > 20:
+            desc_short = desc_short[:17] + "..."
+            
         table_data.append([
             t.task_id,
             t.title,
+            desc_short,
             f"{p_color}{t.priority.value}{COLOR_RESET}",
             t.due_date if t.due_date else "N/A",
-            f"{s_color}{t.status.value}{COLOR_RESET}",
-            created_formatted
+            f"{s_color}{t.status.value}{COLOR_RESET}"
         ])
         
     return tabulate(table_data, headers=headers, tablefmt="fancy_grid")

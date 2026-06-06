@@ -8,39 +8,32 @@ from src.calculator import Calculator, CalculatorError
 from src.history import HistoryManager
 
 def print_banner() -> None:
-    """Displays the calculator ASCII startup banner and metadata."""
-    banner = f"""
-{COLOR_HEADER}======================================================================
-  ____       _            _   _  __ _          ____       _      
- / ___|  ___(_) ___ _ __ | |_(_)/ _(_) ___    / ___| __ _| | ___ 
- \\___ \\ / __| |/ _ \\ '_ \\| __| | |_| |/ __|  | |    / _` | |/ __|
-  ___) | (__| |  __/ | | | |_| |  _| | (__   | |___| (_| | | (__ 
- |____/ \\___|_|\\___|_| |_|\\__|_|_| |_|\\___|   \\____|\\__,_|_|\\___|
-                                                                 
-{APP_NAME}
-Version: {VERSION}
-Author: {AUTHOR}
-Internship: {INTERNSHIP}
-======================================================================{COLOR_RESET}"""
+    """Displays the calculator ASCII startup banner and metadata in a compact box."""
+    banner = fr"""
+{COLOR_HEADER}┌──────────────────────────────────────────────────┐
+│   ____   ____ ___    ____   _    _     ____      │
+│  / ___| / ___|_ _|  / ___| / \  | |   / ___|     │
+│  \___ \| |    | |  | |    / _ \ | |  | |         │
+│   ___) | |___ | |  | |___/ ___ \| |__| |___      │
+│  |____/ \____|___|  \____/_/   \_\_____\____|    │
+│                                                  │
+│  {APP_NAME:<48}│
+│  Version: {VERSION:<39}│
+│  Author: {AUTHOR:<40}│
+│  Internship: {INTERNSHIP:<36}│
+└──────────────────────────────────────────────────┘{COLOR_RESET}"""
     print(banner)
 
 def print_help() -> None:
-    """Displays the menu options description."""
-    print(f"\n{COLOR_HEADER}--- HELP & USAGE INSTRUCTIONS ---{COLOR_RESET}")
-    print("Select an option by entering the appropriate number or character.")
-    print("\nOperations:")
-    print("  [1] Basic Arithmetic   - Addition, Subtraction, Multiplication, Division.")
-    print("  [2] Modulus & Powers   - Modulus (Remainder), Power (x^y).")
-    print("  [3] Advanced Functions - Square Root, Factorial, Percentage.")
-    print("  [4] Logarithms         - Natural Log (ln), Common Log (log10).")
-    print("  [5] Trigonometry       - Sine, Cosine, Tangent.")
-    print("  [6] Angle Mode Toggle  - Switch between DEGREES and RADIANS.")
-    print("  [7] Memory Register    - Recall (MR), Clear (MC), Store (MS), Add (M+), Sub (M-).")
-    print("  [8] Session History    - View and export current session history.")
-    print("  [A] About Project      - Displays developer info and architecture highlights.")
-    print("  [H] Help               - Print this guide.")
-    print("  [V] Version Info       - Print application version.")
-    print("  [Q] Quit               - Close the calculator session.")
+    """Displays the menu options description in a compact grid."""
+    print(f"\n{COLOR_HEADER}┌─────────────── CALCULATOR MENU ──────────────────┐{COLOR_RESET}")
+    print(f"│  [1] Basic Arithmetic    [5] Trigonometry        │")
+    print(f"│  [2] Modulus & Powers    [6] Angle Mode Toggle   │")
+    print(f"│  [3] Advanced Functions  [7] Memory Register     │")
+    print(f"│  [4] Logarithms          [8] Session History     │")
+    print(f"│  [A] About Project       [H] Help & Usage        │")
+    print(f"│  [V] Version Info        [Q] Quit Calculator     │")
+    print(f"{COLOR_HEADER}└──────────────────────────────────────────────────┘{COLOR_RESET}")
 
 def print_about() -> None:
     """Displays metadata and architecture notes."""
